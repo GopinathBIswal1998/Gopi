@@ -48,13 +48,13 @@ export default function Navbar() {
               </span>
             ))}
           </span>
-          <span className="nav-brand-name sm:hidden" aria-label="GB">
+          {/* <span className="nav-brand-name sm:hidden" aria-label="GB">
             {["G", "B"].map((letter, index) => (
               <span key={letter} style={{ "--letter-delay": `${index * 90}ms` }}>
                 {letter}
               </span>
             ))}
-          </span>
+          </span> */}
           <span className="nav-brand-path text-ink_text-faint">~</span>
         </a>
 
