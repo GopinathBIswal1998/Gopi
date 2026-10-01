@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Mail, Phone, MapPin, Download } from "lucide-react";
 import SectionHeading from "./SectionHeading.jsx";
 import Reveal from "./Reveal.jsx";
@@ -54,6 +55,16 @@ const socialLinks = [
 
 export default function Contact() {
   const telHref = `tel:${profile.phone.replace(/[^+\d]/g, "")}`;
+  const [resumeActivating, setResumeActivating] = useState(false);
+  const resumeTimer = useRef(null);
+
+  useEffect(() => () => window.clearTimeout(resumeTimer.current), []);
+
+  const animateResumeDownload = () => {
+    window.clearTimeout(resumeTimer.current);
+    setResumeActivating(true);
+    resumeTimer.current = window.setTimeout(() => setResumeActivating(false), 850);
+  };
 
   return (
     <section id="contact" className="py-10 sm:py-16 border-t border-ink-border bg-ink-950/40">
@@ -115,9 +126,11 @@ export default function Contact() {
               <a
                 href={profile.resumeUrl}
                 download
-                className="resume-action mt-8 inline-flex items-center justify-center gap-2 border border-amber/40 text-amber font-semibold px-5 py-3 rounded-md hover:bg-amber hover:text-ink-900 transition-colors"
+                onClick={animateResumeDownload}
+                className={`resume-action inline-flex items-center justify-center gap-2 border border-amber/40 text-amber font-semibold px-5 py-3 rounded-md hover:bg-amber hover:text-ink-900 transition-colors ${resumeActivating ? "is-downloading" : ""}`}
               >
-                <Download size={17} /> Download Resume
+                <span className="resume-action-icon"><Download size={17} /></span>
+                <span className="resume-action-label">Download CV</span>
               </a>
             </div>
           </Reveal>

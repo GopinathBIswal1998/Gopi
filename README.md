@@ -18,16 +18,19 @@ The contact form on the site sends real emails using **EmailJS** — but it need
 your own keys or it won't send anything.
 
 1. Create a free account at **https://www.emailjs.com**
-2. **Email Services** → add a service (e.g. connect your Gmail) → copy the **Service ID**
-3. **Email Templates** → create a template whose body uses exactly these variables:
+2. **Email Services** → add a service (e.g. connect your Gmail) → copy the **Service ID**.
+3. **Email Templates** → create a template using these variables in the message body:
    ```
    {{user_name}}
    {{user_email}}
+  {{user_mobile}}
+  {{user_location}}
    {{message}}
    ```
-   → copy the **Template ID**
-4. **Account → General** → copy your **Public Key**
-5. Copy `.env.example` to a new file named `.env` in the project root, and paste your three values in:
+  All contact fields are required. Mobile numbers accept digits only; the place field suggests town names while typing and also accepts manual entry. Add `user_mobile` and `user_location` to an existing template to include those values in received messages.
+  Copy the **Template ID**.
+4. **Account → General** → copy your **Public Key**.
+5. Copy `.env.example` to `.env` in the project root and add your three values:
    ```
    VITE_EMAILJS_SERVICE_ID=your_service_id
    VITE_EMAILJS_TEMPLATE_ID=your_template_id

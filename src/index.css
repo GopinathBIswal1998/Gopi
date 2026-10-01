@@ -728,18 +728,46 @@ body {
 
 .scroll-top-control {
   --scroll-progress: 0%;
+  color: #C084FC;
   width: 48px;
   height: 48px;
   display: grid;
   place-items: center;
   border: 1px solid rgba(168, 85, 247, 0.42);
   border-radius: 50%;
-  background: rgba(10, 17, 32, 0.78);
+  background: rgba(10, 17, 32, 0.82);
   backdrop-filter: blur(10px);
   box-shadow: 0 12px 28px -15px rgba(168, 85, 247, 0.95);
   isolation: isolate;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease,
     box-shadow 0.35s ease, color 0.35s ease, opacity 0.3s ease;
+}
+
+[data-theme="light"] .scroll-top-control {
+  color: #6D28D9;
+  border-color: rgba(109, 40, 217, 0.35);
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 12px 28px -15px rgba(109, 40, 217, 0.5);
+}
+
+[data-theme="light"] .scroll-top-orbit {
+  background: conic-gradient(#7C3AED var(--scroll-progress), rgba(109, 40, 217, 0.14) 0);
+}
+
+[data-theme="light"] .scroll-top-core {
+  background: rgba(124, 58, 237, 0.1);
+}
+
+[data-theme="light"] .scroll-top-trail {
+  background: #7C3AED;
+  box-shadow: 0 0 12px 3px rgba(124, 58, 237, 0.55);
+}
+
+[data-theme="light"] .scroll-top-control:hover,
+[data-theme="light"] .scroll-top-control:focus-visible {
+  color: #4C1D95;
+  border-color: rgba(109, 40, 217, 0.7);
+  box-shadow: 0 16px 34px -14px rgba(109, 40, 217, 0.55);
 }
 
 .scroll-top-orbit {
@@ -1021,12 +1049,13 @@ body {
 
 .contact-details-card > .space-y-4 {
   width: 100%;
-  margin-top: auto;
+  margin-top: 24px;
   margin-bottom: 0;
   padding: 22px 0 18px;
 }
 
 .contact-focus-block {
+  margin-top: auto;
   padding: 16px 0 20px;
   border-top: 1px solid rgba(192, 132, 252, 0.16);
   border-bottom: 1px solid rgba(192, 132, 252, 0.16);
@@ -1079,6 +1108,12 @@ body {
   font: 11px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
+[data-theme="light"] .contact-console {
+  border-color: rgba(124, 58, 237, 0.2);
+  background: rgba(124, 58, 237, 0.055);
+  color: rgb(var(--c-text-secondary));
+}
+
 .contact-console span {
   display: block;
 }
@@ -1099,8 +1134,8 @@ body {
 }
 
 .contact-details-card .resume-action {
-  align-self: flex-start;
-  margin-top: 0;
+  align-self: center;
+  margin: 20px auto 0;
 }
 
 @media (min-width: 1024px) {
@@ -1171,7 +1206,16 @@ body {
 
 .resume-action {
   position: relative;
+  display: flex;
+  width: min(100%, 220px);
+  min-width: 0;
+  min-height: 52px;
+  margin-inline: auto;
   overflow: hidden;
+  padding: 10px 16px;
+  border-color: rgba(192, 132, 252, 0.42);
+  color: #C084FC;
+  background: rgba(124, 58, 237, 0.08);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.35s ease,
     box-shadow 0.35s ease;
 }
@@ -1180,7 +1224,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(135deg, transparent 0 10px, rgba(242, 169, 59, 0.16) 11px 12px);
+  background: linear-gradient(100deg, transparent 20%, rgba(192, 132, 252, 0.2) 50%, transparent 80%);
   transform: translateX(-100%);
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1190,9 +1234,95 @@ body {
   z-index: 1;
 }
 
+.resume-action-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(192, 132, 252, 0.3);
+  border-radius: 7px;
+  background: rgba(124, 58, 237, 0.18);
+}
+
+.resume-action-label {
+  flex: 0 1 auto;
+  text-align: center;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.location-picker-trigger {
+  min-height: 46px;
+  padding-right: 42px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.location-picker-trigger:hover {
+  border-color: rgba(192, 132, 252, 0.55);
+  box-shadow: 0 8px 22px -16px rgba(192, 132, 252, 0.85);
+}
+
+.location-autocomplete {
+  position: relative;
+}
+
+.location-input-icon {
+  position: absolute;
+  right: 13px;
+  top: 50%;
+  color: rgb(var(--c-text-faint));
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.town-suggestions {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  padding: 5px;
+  border: 1px solid rgba(192, 132, 252, 0.36);
+  border-radius: 8px;
+  background: rgb(var(--c-panel));
+  box-shadow: 0 14px 35px -18px rgba(4, 7, 16, 0.9);
+  animation: errorReveal 0.18s ease-out;
+}
+
+.town-suggestion {
+  display: block;
+  width: 100%;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 5px;
+  color: rgb(var(--c-text-secondary));
+  background: transparent;
+  text-align: left;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.town-suggestion:hover,
+.town-suggestion.is-active {
+  color: rgb(var(--c-text-primary));
+  background: rgba(124, 58, 237, 0.16);
+}
+
+.town-suggestions-status {
+  padding: 9px 10px;
+  color: rgb(var(--c-text-faint));
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .resume-action:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 28px -14px rgba(242, 169, 59, 0.9);
+  transform: translateY(-2px);
+  border-color: rgba(192, 132, 252, 0.75);
+  color: #E9D5FF;
+  background: rgba(124, 58, 237, 0.18);
+  box-shadow: 0 12px 28px -14px rgba(168, 85, 247, 0.75);
 }
 
 .resume-action:hover::before {
@@ -1201,6 +1331,32 @@ body {
 
 .resume-action:hover svg {
   animation: resumeDownload 0.75s ease-in-out;
+}
+
+.resume-action.is-downloading {
+  color: #F5F3FF;
+  border-color: #C084FC;
+  background: #6D28D9;
+  box-shadow: 0 0 28px -8px rgba(168, 85, 247, 0.9);
+}
+
+.resume-action.is-downloading::before {
+  animation: downloadFill 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.resume-action.is-downloading svg {
+  animation: downloadDrop 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes downloadFill {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+@keyframes downloadDrop {
+  0% { transform: translateY(-5px); opacity: 0.45; }
+  55% { transform: translateY(4px); opacity: 1; }
+  100% { transform: translateY(0); }
 }
 
 @keyframes resumeDownload {
@@ -1259,9 +1415,59 @@ body {
 
 .contact-submit {
   position: relative;
+  display: flex;
+  width: min(100%, 220px);
+  min-width: 0;
+  min-height: 52px;
+  margin: 8px auto 0;
   overflow: hidden;
+  padding: 10px 16px;
+  border: 1px solid rgba(216, 180, 254, 0.35);
+  color: #FFFFFF;
+  background: linear-gradient(105deg, #6D28D9, #9333EA 55%, #A855F7);
+  background-size: 180% 100%;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease,
-    background-color 0.35s ease;
+    background-position 0.45s ease, border-color 0.35s ease;
+}
+
+.contact-submit.is-sending {
+  color: #FFFFFF;
+  background-position: 100% 0;
+  border-color: rgba(233, 213, 255, 0.8);
+  box-shadow: 0 0 30px -7px rgba(168, 85, 247, 0.85);
+}
+
+.contact-submit.is-sending::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 35%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(-120%) skewX(-18deg);
+  animation: sendButtonSweep 1.1s ease-in-out infinite;
+}
+
+.contact-submit.is-sending > * {
+  position: relative;
+  z-index: 1;
+}
+
+.contact-submit.is-sending .send-flight-icon {
+  animation: sendFlight 0.85s ease-in-out infinite;
+}
+
+.contact-submit.is-sent {
+  color: #042F2E;
+  background: #2DD4BF;
+  border-color: rgba(45, 212, 191, 0.75);
+  box-shadow: 0 10px 30px -14px rgba(45, 212, 191, 0.8);
+}
+
+.contact-submit:not(:disabled) {
+  cursor: pointer;
 }
 
 .contact-submit:hover:not(:disabled) {
@@ -1314,6 +1520,16 @@ body {
   0%, 100% { transform: translate(0, 0) rotate(0); }
   40% { transform: translate(3px, -3px) rotate(-8deg); }
   75% { transform: translate(-1px, 1px) rotate(4deg); }
+}
+
+@keyframes sendFlight {
+  0%, 100% { transform: translate(0, 0) rotate(0); }
+  50% { transform: translate(5px, -4px) rotate(-10deg); }
+}
+
+@keyframes sendButtonSweep {
+  0% { transform: translateX(-120%) skewX(-18deg); }
+  100% { transform: translateX(420%) skewX(-18deg); }
 }
 
 @keyframes statusReveal {
@@ -1456,6 +1672,101 @@ body {
 
 .social-email:hover::after {
   animation: emailPing 0.85s ease-out;
+}
+
+.about-layout {
+  align-items: stretch;
+}
+
+.about-copy {
+  min-width: 0;
+}
+
+.about-copy p + p {
+  margin-top: 18px;
+}
+
+.about-actions {
+  margin-top: 26px;
+}
+
+.about-aside {
+  min-width: 0;
+}
+
+.about-stat {
+  min-height: 104px;
+  transition: border-color 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+}
+
+.about-stat:hover {
+  transform: translateY(-3px);
+  border-color: rgba(192, 132, 252, 0.48);
+}
+
+.about-focus {
+  margin-top: 28px;
+}
+
+.about-focus-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgb(var(--c-border));
+}
+
+.about-focus-marker {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #A855F7;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.65);
+}
+
+.about-focus-heading h3 {
+  margin: 0;
+  color: rgb(var(--c-text-primary));
+  font: 600 15px/1.3 ui-sans-serif, system-ui, sans-serif;
+}
+
+.about-focus-list {
+  display: grid;
+}
+
+.about-focus-item {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 10px;
+  padding: 15px 0;
+  border-bottom: 1px solid rgb(var(--c-border));
+  transition: transform 0.3s ease;
+}
+
+.about-focus-item:hover {
+  transform: translateX(4px);
+}
+
+.about-focus-number {
+  padding-top: 2px;
+  color: #A855F7;
+  font: 500 11px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.about-focus-item h4 {
+  margin: 0;
+  color: rgb(var(--c-text-primary));
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.about-focus-item p {
+  margin: 4px 0 0;
+  color: rgb(var(--c-text-secondary));
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 .about-social {
@@ -1636,7 +1947,9 @@ body {
   }
 
   .about-social,
-  .about-social > svg {
+  .about-social > svg,
+  .about-stat,
+  .about-focus-item {
     transition: none;
     animation: none;
     transform: none;
@@ -1715,8 +2028,15 @@ body {
   .contact-console-cursor > span,
   .resume-action,
   .resume-action::before,
+  .resume-action.is-downloading::before,
+  .resume-action.is-downloading svg,
+  .location-picker-trigger,
+  .town-suggestions,
+  .town-suggestion,
   .form-input,
   .contact-submit,
+  .contact-submit::before,
+  .contact-submit.is-sending .send-flight-icon,
   .form-status,
   .form-error {
     transition: none;

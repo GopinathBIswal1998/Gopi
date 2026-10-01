@@ -56,7 +56,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-ink-900/40 via-ink-900/70 to-ink-900 pointer-events-none" />
 
       <div className="relative max-w-6xl mx-auto px-5 sm:px-8 grid md:grid-cols-[1.15fr_0.85fr] gap-14 items-center w-full">
-        <div className="animate-fadeUp">
+        <div className="hero-copy order-2 md:order-1 animate-fadeUp">
           <div className="inline-flex items-center gap-2 font-mono text-xs text-teal border border-teal/30 bg-teal/5 rounded-full px-3 py-1 mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulseNode" />
             status: open to opportunities
@@ -119,7 +119,7 @@ export default function Hero() {
 
         <motion.div
           ref={profileVisualRef}
-          className="profile-style-2 relative mx-auto md:mx-0 animate-fadeUp"
+          className="hero-profile profile-style-2 relative order-1 md:order-2 mx-auto md:mx-0 animate-fadeUp"
           style={prefersReducedMotion ? undefined : { y: profileY, rotate: profileRotate, scale: profileScale }}
           initial={prefersReducedMotion ? false : { opacity: 0, y: 32, scale: 0.92 }}
           animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}

@@ -57,7 +57,7 @@ export default function ScrollToTop() {
       aria-label="Scroll to top"
       aria-busy={returning}
       style={{ "--scroll-progress": `${progress}%` }}
-      className={`scroll-top-control fixed bottom-6 right-5 sm:right-8 z-40 text-amber transition-all duration-300 ${
+      className={`scroll-top-control fixed bottom-6 right-5 sm:right-8 z-40 transition-all duration-300 ${
         visible ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"
       }`}
     >
