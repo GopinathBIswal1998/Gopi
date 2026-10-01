@@ -9,6 +9,7 @@ import {
 import {
   EMAILJS_SERVICE_ID,
   EMAILJS_TEMPLATE_ID,
+  EMAILJS_AUTO_REPLY_TEMPLATE_ID,
   EMAILJS_PUBLIC_KEY,
 } from "../emailConfig.js";
 
@@ -225,9 +226,20 @@ export default function ContactForm() {
     setStatus("sending");
 
     try {
+      // 1. Send notification email to Gopinath
       await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
+        form,
+        {
+          publicKey: EMAILJS_PUBLIC_KEY,
+        }
+      );
+
+      // 2. Send automatic confirmation email to the visitor
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_AUTO_REPLY_TEMPLATE_ID,
         form,
         {
           publicKey: EMAILJS_PUBLIC_KEY,
